@@ -26,7 +26,7 @@ class TestBooksCollector:
     def test_get_book_genre_get_books_by_genre(self, books_genre):
         book = books_genre.get_book_genre('На выручку юному Гасси!')
 
-        assert book == 'Комедия'
+        assert book == 'Комедии'
 
     def test_get_books_with_specific_genre_get_books_by_horror_genre(self, books_genre):
         books_list = books_genre.get_books_with_specific_genre('Ужасы')
@@ -43,11 +43,9 @@ class TestBooksCollector:
         assert len(books_genre.get_books_genre()) != 0
 
     def test_get_books_for_children_get_children_books_list(self, books_genre):
-     books_for_children = []
-     result = books_genre.get_books_for_children()
-     books_for_children.append(result)
+        books_for_children = books_genre.get_books_for_children()
 
-     assert books_for_children != ['Восточный экспресс', 'Дракула', 'Франкенштейн']
+        assert books_for_children != ['Восточный экспресс', 'Дракула', 'Франкенштейн']
 
     @pytest.mark.parametrize('name',
                              [
@@ -58,9 +56,10 @@ class TestBooksCollector:
     def test_add_book_in_favorites_invalid_books_names(self, name):
         collector = BooksCollector()
 
-        favorite_books = collector.add_book_in_favorites(name)
+        collector.add_book_in_favorites(name)
+        favorite_books = collector.get_list_of_favorites_books()
 
-        assert favorite_books == None
+        assert favorite_books == []
 
     def test_delete_book_from_favorites_delete_favorite_book(self, books_genre):
         books_genre.add_book_in_favorites('Франкенштейн')
